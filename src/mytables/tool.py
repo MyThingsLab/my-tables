@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 from collections.abc import Callable
 from pathlib import Path
 
@@ -13,6 +14,14 @@ from mythings.tool import BaseToolRunner
 from mythings.tool import ToolRunResult as Result
 
 from mytables.extract import Table, extract_tables
+
+
+def _run_git(tree: Path, argv: list[str]) -> None:
+    proc = subprocess.run(["git", *argv], cwd=tree, capture_output=True, text=True)
+    if proc.returncode != 0:
+        raise RuntimeError(
+            f"git {' '.join(argv)} failed ({proc.returncode}): {proc.stderr.strip()}"
+        )
 
 TOOL = "mytables"
 LEDGER_KIND = "table_extract"
