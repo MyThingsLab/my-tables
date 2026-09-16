@@ -17,7 +17,8 @@ requires-python = ">=3.11"
 dependencies = ["my-things-core", "pdfplumber>=0.11"]
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.6", "pre-commit>=3"]
+# PyMuPDF is test-only: the fixtures synthesize PDFs that pdfplumber then reads.
+dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.6", "pre-commit>=3", "PyMuPDF>=1.24"]
 
 [project.scripts]
 mytables = "mytables.cli:main"
